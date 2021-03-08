@@ -11,7 +11,7 @@ const App = () => {
         <div>
           <Forms/> 
         </div>
-          {console.log(selectUserForm)}
+          {/* {console.log(selectUserForm)} */}
     </div>
   ); 
 }

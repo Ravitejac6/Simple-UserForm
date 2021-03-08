@@ -11,10 +11,18 @@ import {TextField, Button, Radio, RadioGroup, FormControlLabel, Checkbox,FormGro
 
 
 export const Forms= () => {
+
+  let intialStateUserTechnology : Technology = {
+    c : false,
+    c_plus : false,
+    python : false
+  }
   const dispatch = useDispatch();
   const {register, handleSubmit} = useForm();
   const [user, setUser] = useState<UserForm | {}>();
-  const [userTech, setUserTech] = useState<Technology>();
+  const [userTech, setUserTech] = useState<Technology>(intialStateUserTechnology);
+
+  
 
   // Whenever users changes then the technologies need to updated for the user.
   useEffect(() =>{
@@ -22,7 +30,6 @@ export const Forms= () => {
   },[userTech])
 
   let newUser:UserForm;
-
 
   const handleUserData = (e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>{
       setUser({
@@ -32,8 +39,19 @@ export const Forms= () => {
   }
 
   const handleUserTechnologyData = (e: React.ChangeEvent<HTMLInputElement>) =>{
-    setUserTech(prevUserTech => ({...prevUserTech, [e.currentTarget.name] : e.currentTarget.checked}))
+    setUserTech(prevUserTech => 
+      ({
+        ...prevUserTech, 
+        [e.currentTarget.name] : e.currentTarget.checked}
+      ))
   }
+  // const handleUserTechnologyData = (e: React.ChangeEvent<HTMLInputElement>) =>{
+  //   setUserTech(prevUserTech => 
+  //     ({
+  //       ...prevUserTech, 
+  //       [e.currentTarget.name] : e.currentTarget.checked}
+  //     ))
+  // }
 
   const onSubmit = (data:UserForm) =>{
     newUser = {
@@ -41,7 +59,9 @@ export const Forms= () => {
       email : data.email,
       gender:data.gender,
       mobileNumber : data.mobileNumber,
-      technology : data.technology
+      c: userTech.c,
+      c_plus: userTech.c_plus,
+      python:userTech.python
     }
     dispatch(setFormUser(newUser));
     console.log(user);

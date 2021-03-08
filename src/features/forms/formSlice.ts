@@ -1,30 +1,32 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Technology {
-  c?: boolean;
-  c_plus?: boolean;
-  python?: boolean;
+  c: boolean;
+  c_plus: boolean;
+  python: boolean;
 }
-export interface UserForm {
+export interface UserForm extends Technology {
   firstName: string;
   gender: string;
   email: string;
   mobileNumber: string;
-  technology: Technology;
 }
 
-const intialStateTechnology: Technology = {
-  c: false,
-  c_plus: false,
-  python: false,
-};
+// const intialStateTechnology: Technology = {
+//   c: false,
+//   c_plus: false,
+//   python: false,
+// };
 
 const initialState: UserForm = {
   firstName: "",
   gender: "",
   email: "",
   mobileNumber: "",
-  technology: intialStateTechnology,
+  //technology: intialStateTechnology,
+  c: false,
+  c_plus: false,
+  python: false,
 };
 
 export const formSlice = createSlice({
@@ -32,13 +34,17 @@ export const formSlice = createSlice({
   initialState,
   reducers: {
     setFormUser: (state, action: PayloadAction<UserForm>) => {
+      console.log(action);
       return {
         ...state,
         firstName: action.payload.firstName,
         gender: action.payload.gender,
         email: action.payload.email,
         mobileNumber: action.payload.mobileNumber,
-        technology: action.payload.technology,
+        //technology: action.payload.technology,
+        c: action.payload.c,
+        c_plus: action.payload.c_plus,
+        python: action.payload.python,
       };
     },
   },
