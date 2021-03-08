@@ -45,13 +45,6 @@ export const Forms= () => {
         [e.currentTarget.name] : e.currentTarget.checked}
       ))
   }
-  // const handleUserTechnologyData = (e: React.ChangeEvent<HTMLInputElement>) =>{
-  //   setUserTech(prevUserTech => 
-  //     ({
-  //       ...prevUserTech, 
-  //       [e.currentTarget.name] : e.currentTarget.checked}
-  //     ))
-  // }
 
   const onSubmit = (data:UserForm) =>{
     newUser = {
