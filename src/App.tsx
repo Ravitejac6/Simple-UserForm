@@ -5,6 +5,8 @@ import {UserForm} from './features/forms/reducer'
 import {useSelector} from 'react-redux'
 import {ToolBarComponent} from './features/toolbar'
 import { DialogBoxComponent } from './features/dialogBoxComponent';
+import {BrowserRouter as Router, Switch, Route, Link, useRouteMatch} from 'react-router-dom';
+
 
 
 const App = () => {
@@ -13,13 +15,15 @@ const App = () => {
   return(
     <>
       <ToolBarComponent/>
-        <div className="form-area">
-          <Forms/> 
-        </div>
-        <div>
-          <DialogBoxComponent/>
-        </div>
-          {console.log(selectUserForm)} 
+        <Router>
+          <div className="form-area">
+            <Forms/> 
+          </div>
+          <div>
+            <DialogBoxComponent/>
+          </div>
+            {console.log(selectUserForm)}
+        </Router> 
     </>
   ); 
 }
