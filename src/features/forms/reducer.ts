@@ -8,6 +8,7 @@ export interface UserForm extends Technology {
   gender: string;
   email: string;
   mobileNumber: string;
+  userImage: string;
 }
 
 // const intialStateTechnology: Technology = {
@@ -21,6 +22,7 @@ const initialState: UserForm = {
   gender: "",
   email: "",
   mobileNumber: "",
+  userImage: "",
   //technology: intialStateTechnology,
   c: false,
   c_plus: false,
@@ -37,6 +39,7 @@ const setUserFormReducer = (state: UserForm, action: Action) => {
     gender: action.payload.gender,
     email: action.payload.email,
     mobileNumber: action.payload.mobileNumber,
+    userImage: action.payload.userImage,
     //technology: action.payload.technology,
     c: action.payload.c,
     c_plus: action.payload.c_plus,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { useDispatch} from 'react-redux';
+import { ReactReduxContextValue, useDispatch} from 'react-redux';
 import {
   UserForm,
   Technology
@@ -21,6 +21,7 @@ export const Forms= () => {
   const {register, handleSubmit} = useForm();
   const [user, setUser] = useState<UserForm | {}>();
   const [userTech, setUserTech] = useState<Technology>(intialStateUserTechnology);
+  let base64UserImage:string=''
 
   
 
@@ -45,6 +46,20 @@ export const Forms= () => {
         [e.currentTarget.name] : e.currentTarget.checked}
       ))
   }
+  
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) =>{
+    if(e.target.files !== null){
+      let file = e.target.files[0]
+      if(file){
+          const reader = new FileReader()
+          reader.addEventListener('loadend',() =>{
+             let binaryString  = reader.result as string
+             base64UserImage = btoa(binaryString)
+          },false)
+          reader.readAsBinaryString(file)
+      }
+    }
+  }
 
   const onSubmit = (data:UserForm) =>{
     newUser = {
@@ -54,7 +69,8 @@ export const Forms= () => {
       mobileNumber : data.mobileNumber,
       c: userTech.c,
       c_plus: userTech.c_plus,
-      python:userTech.python
+      python:userTech.python,
+      userImage : base64UserImage
     }
     dispatch(setForm(newUser));
     console.log(user);
@@ -84,7 +100,7 @@ export const Forms= () => {
             label="Python"
           />
         </FormGroup>
-
+        <input type="file" name="image" id="file" accept=".jpeg, .png, .jpg" onChange = {(e) => handleImageUpload(e)}/>
         <Button variant="contained" color="primary" type="submit" disabled={user === undefined ? true:false}>Submit</Button>
       </form>
     </div>
