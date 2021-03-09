@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { ReactReduxContextValue, useDispatch} from 'react-redux';
+import { useDispatch} from 'react-redux';
 import {
   UserForm,
   Technology
@@ -100,7 +100,7 @@ export const Forms= () => {
             label="Python"
           />
         </FormGroup>
-        <input type="file" name="image" id="file" accept=".jpeg, .png, .jpg" onChange = {(e) => handleImageUpload(e)}/>
+        <input type="file" className="upload-button" name="image" id="file" accept=".jpeg, .png, .jpg" onChange = {(e) => handleImageUpload(e)}/><br/>
         <Button variant="contained" color="primary" type="submit" disabled={user === undefined ? true:false}>Submit</Button>
       </form>
     </div>

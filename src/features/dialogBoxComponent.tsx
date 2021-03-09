@@ -111,7 +111,7 @@ export const DialogBoxComponent = () =>{
                         {selectUserForm.python === true?"Python" : ''}
                       </ListItem>
                     </List>
-                    <img src={`data:image/jpeg;base64,${selectUserForm.userImage}`} alt="Image not loaded"/>
+                    <img src={`data:image/jpeg;base64,${selectUserForm.userImage}`} alt="Image not loaded" width="275" height="325"/>
             </DialogContent>
             <DialogActions>
               <Button autoFocus onClick={handleClose} color="primary">
