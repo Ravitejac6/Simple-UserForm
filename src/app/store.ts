@@ -1,11 +1,7 @@
-import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import formReducer from "../features/forms/formSlice";
+import { ThunkAction, Action, createStore } from "@reduxjs/toolkit";
+import { formReducer } from "../features/forms/reducer";
 
-export const store = configureStore({
-  reducer: {
-    userform: formReducer,
-  },
-});
+export const store = createStore(formReducer);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<

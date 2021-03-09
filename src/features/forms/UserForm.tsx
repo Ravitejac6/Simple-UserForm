@@ -1,11 +1,11 @@
 import React, { useState, useEffect} from 'react';
 import { useDispatch} from 'react-redux';
 import {
-  setFormUser,
   UserForm,
   Technology
-} from './formSlice';
+} from './reducer';
 import {useForm} from 'react-hook-form'
+import {setForm} from '../../actions/actions'
 import {TextField, Button, Radio, RadioGroup, FormControlLabel, Checkbox,FormGroup} from '@material-ui/core';
 
 
@@ -56,7 +56,7 @@ export const Forms= () => {
       c_plus: userTech.c_plus,
       python:userTech.python
     }
-    dispatch(setFormUser(newUser));
+    dispatch(setForm(newUser));
     console.log(user);
   }
 

@@ -1,12 +1,12 @@
 import React,{useState} from 'react'
-import {Button, Dialog, Typography} from '@material-ui/core'
+import {Button, Dialog, Typography, List, ListItem} from '@material-ui/core'
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import {UserForm} from './forms/formSlice'
+import {UserForm} from './forms/reducer'
 import {useSelector} from 'react-redux'
 
 
@@ -97,6 +97,20 @@ export const DialogBoxComponent = () =>{
                   Mobile Number:
                     {selectUserForm.mobileNumber}
               </Typography>
+              <Typography gutterBottom>
+                  Languages:
+              </Typography>
+                   <List>
+                      <ListItem>
+                        {selectUserForm.c === true?'C' : ''}
+                      </ListItem>
+                      <ListItem>
+                        {selectUserForm.c_plus === true?'C++' : ''}
+                      </ListItem>
+                      <ListItem>
+                        {selectUserForm.python === true?"Python" : ''}
+                      </ListItem>
+                    </List>
             </DialogContent>
             <DialogActions>
               <Button autoFocus onClick={handleClose} color="primary">

@@ -1,6 +1,3 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
-
 export interface Technology {
   c: boolean;
   c_plus: boolean;
@@ -30,31 +27,35 @@ const initialState: UserForm = {
   python: false,
 };
 
-export const formSlice = createSlice({
-  name: "userform",
-  initialState,
-  reducers: {
-    setFormUser: (state, action: PayloadAction<UserForm>) => {
-      console.log(action);
-      return {
-        ...state,
-        firstName: action.payload.firstName,
-        gender: action.payload.gender,
-        email: action.payload.email,
-        mobileNumber: action.payload.mobileNumber,
-        //technology: action.payload.technology,
-        c: action.payload.c,
-        c_plus: action.payload.c_plus,
-        python: action.payload.python,
-      };
-    },
-  },
-});
+type Action = { type: "SET_FORM"; payload: UserForm };
 
-export const { setFormUser } = formSlice.actions;
+const setUserFormReducer = (state: UserForm, action: Action) => {
+  console.log(action);
+  return {
+    ...state,
+    firstName: action.payload.firstName,
+    gender: action.payload.gender,
+    email: action.payload.email,
+    mobileNumber: action.payload.mobileNumber,
+    //technology: action.payload.technology,
+    c: action.payload.c,
+    c_plus: action.payload.c_plus,
+    python: action.payload.python,
+  };
+};
+
+export const formReducer = (state: UserForm = initialState, action: Action) => {
+  switch (action.type) {
+    case "SET_FORM": {
+      return setUserFormReducer(state, action);
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 // // The function below is called a selector and allows us to select a value from
 // // the state. Selectors can also be defined inline where they're used instead of
 // // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 // export const selectCount = (state: RootState) => state.counter.value;
-
-export default formSlice.reducer;

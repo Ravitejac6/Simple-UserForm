@@ -1,7 +1,7 @@
 import React from 'react';
 import { Forms } from './features/forms/UserForm';
 import './App.css';
-import {UserForm} from './features/forms/formSlice'
+import {UserForm} from './features/forms/reducer'
 import {useSelector} from 'react-redux'
 import {ToolBarComponent} from './features/toolbar'
 import { DialogBoxComponent } from './features/dialogBoxComponent';
