@@ -30,9 +30,37 @@ const initialState: UserForm = {
 };
 
 type Action = { type: "SET_FORM"; payload: UserForm };
+export let allUsersDataArr: UserForm[] = [];
+
+const saveToLocalStorage = (state: UserForm) => {
+  try {
+    if (localStorage.getItem("usersData") !== null) {
+      const val = localStorage.getItem("userData");
+      if (val) {
+        let arr: Array<UserForm> = JSON.parse(val);
+        arr.map((user) => {
+          allUsersDataArr.push(user);
+          return user;
+        });
+        allUsersDataArr.push(state);
+        console.log(allUsersDataArr);
+        return;
+      }
+    } else {
+      allUsersDataArr.push(state);
+      const serializable = JSON.stringify(allUsersDataArr);
+      console.log(allUsersDataArr);
+      localStorage.setItem("userData", serializable);
+      return;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 const setUserFormReducer = (state: UserForm, action: Action) => {
   console.log(action);
+  saveToLocalStorage(action.payload);
   return {
     ...state,
     firstName: action.payload.firstName,

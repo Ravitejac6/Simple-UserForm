@@ -7,7 +7,7 @@ import {
 import {useForm} from 'react-hook-form'
 import {setForm} from '../../actions/actions'
 import {TextField, Button, Radio, RadioGroup, FormControlLabel, Checkbox,FormGroup} from '@material-ui/core';
-
+// import {allUsersDataArr} from '../../features/forms/reducer'
 
 
 export const Forms= () => {
@@ -22,8 +22,6 @@ export const Forms= () => {
   const [user, setUser] = useState<UserForm | {}>();
   const [userTech, setUserTech] = useState<Technology>(intialStateUserTechnology);
   let base64UserImage:string=''
-
-  
 
   // Whenever users changes then the technologies need to updated for the user.
   useEffect(() =>{
