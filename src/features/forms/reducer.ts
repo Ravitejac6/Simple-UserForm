@@ -40,18 +40,16 @@ const saveToLocalStorage = (state: UserForm) => {
         let arr: Array<UserForm> = JSON.parse(val);
         arr.map((user) => {
           allUsersDataArr.push(user);
-          return user;
         });
         allUsersDataArr.push(state);
+        localStorage.setItem("usersData", JSON.stringify(allUsersDataArr));
         console.log(allUsersDataArr);
-        return;
       }
     } else {
       allUsersDataArr.push(state);
       const serializable = JSON.stringify(allUsersDataArr);
       console.log(allUsersDataArr);
       localStorage.setItem("userData", serializable);
-      return;
     }
   } catch (e) {
     console.log(e);
@@ -59,7 +57,7 @@ const saveToLocalStorage = (state: UserForm) => {
 };
 
 const setUserFormReducer = (state: UserForm, action: Action) => {
-  console.log(action);
+  //console.log(action);
   saveToLocalStorage(action.payload);
   return {
     ...state,

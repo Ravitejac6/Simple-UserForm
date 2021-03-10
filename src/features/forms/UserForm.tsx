@@ -7,6 +7,7 @@ import {
 import {useForm} from 'react-hook-form'
 import {setForm} from '../../actions/actions'
 import {TextField, Button, Radio, RadioGroup, FormControlLabel, Checkbox,FormGroup} from '@material-ui/core';
+import {DialogBoxComponent} from '../dialogBoxComponent'
 // import {allUsersDataArr} from '../../features/forms/reducer'
 
 
@@ -71,7 +72,7 @@ export const Forms= () => {
       userImage : base64UserImage
     }
     dispatch(setForm(newUser));
-    console.log(user);
+    //console.log(user);
   }
 
   return (
@@ -101,6 +102,7 @@ export const Forms= () => {
         <input type="file" className="upload-button" name="image" id="file" accept=".jpeg, .png, .jpg" onChange = {(e) => handleImageUpload(e)}/><br/>
         <Button variant="contained" color="primary" type="submit" disabled={user === undefined ? true:false}>Submit</Button>
       </form>
+      <DialogBoxComponent/>
     </div>
   );
 }

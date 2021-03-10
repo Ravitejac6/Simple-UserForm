@@ -19,9 +19,9 @@ const App = () => {
           <div className="form-area">
             <Forms/> 
           </div>
-          <div>
+          {/* <div>
             <DialogBoxComponent/>
-          </div>
+          </div> */}
             {console.log(selectUserForm)}
         </Router> 
     </>
