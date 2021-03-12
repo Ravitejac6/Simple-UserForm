@@ -76,7 +76,7 @@ export const DialogBoxComponent = () =>{
           <Button variant="contained" color="primary" onClick={handleClickOpen}>
             Open dialog
           </Button>
-          <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+          <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} maxWidth="md">
             <DialogTitle id="customized-dialog-title" onClose={handleClose}>
                 User Data
             </DialogTitle>

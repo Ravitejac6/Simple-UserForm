@@ -5,7 +5,8 @@ import {UserForm} from './features/forms/reducer'
 import {useSelector} from 'react-redux'
 import {ToolBarComponent} from './features/toolbar'
 import { DialogBoxComponent } from './features/dialogBoxComponent';
-import {BrowserRouter as Router, Switch, Route, Link, useRouteMatch} from 'react-router-dom';
+import {ViewRecordComponent} from './features/forms/viewRecordComponent'
+import {BrowserRouter as Router, Switch, Route, Link, useRouteMatch, Redirect} from 'react-router-dom';
 
 
 
@@ -23,7 +24,15 @@ const App = () => {
             <DialogBoxComponent/>
           </div> */}
             {console.log(selectUserForm)}
-        </Router> 
+        </Router>
+        <Switch>
+          <Route exact path="/" >
+            <Redirect to="/users/create">
+              <App/>
+              <ViewRecordComponent/>
+            </Redirect>
+          </Route>
+        </Switch> 
     </>
   ); 
 }

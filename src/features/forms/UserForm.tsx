@@ -8,7 +8,7 @@ import {useForm} from 'react-hook-form'
 import {setForm} from '../../actions/actions'
 import {TextField, Button, Radio, RadioGroup, FormControlLabel, Checkbox,FormGroup} from '@material-ui/core';
 import {DialogBoxComponent} from '../dialogBoxComponent'
-// import {allUsersDataArr} from '../../features/forms/reducer'
+import {useHistory} from 'react-router-dom'
 
 
 export const Forms= () => {
@@ -19,9 +19,10 @@ export const Forms= () => {
     python : false
   }
   const dispatch = useDispatch();
-  const {register, handleSubmit} = useForm();
+  const {register, handleSubmit, errors} = useForm();
   const [user, setUser] = useState<UserForm | {}>();
   const [userTech, setUserTech] = useState<Technology>(intialStateUserTechnology);
+  const history = useHistory()
   let base64UserImage:string=''
 
   // Whenever users changes then the technologies need to updated for the user.
@@ -78,7 +79,7 @@ export const Forms= () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField name="firstName" label="First Name" onChange = {(e) => handleUserData(e)} inputRef={register}/>
+        <TextField name="firstName" label="First Name" onChange = {(e) => handleUserData(e)} inputRef={register({required: "First Name is required.", minLength:"2", maxLength:"30"})} error={Boolean(errors.firstName)} helperText={errors.firstName?.message}/>
         <RadioGroup name="gender" onChange = {(e) => handleUserData(e)}>
           <FormControlLabel value="female" control={<Radio />} label="Female" inputRef={register}/>
           <FormControlLabel value="male" control={<Radio />} label="Male" inputRef={register}/>
