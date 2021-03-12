@@ -35,7 +35,7 @@ export let allUsersDataArr: UserForm[] = [];
 const saveToLocalStorage = (state: UserForm) => {
   try {
     if (localStorage.getItem("usersData") !== null) {
-      const val = localStorage.getItem("userData");
+      const val = localStorage.getItem("usersData");
       if (val) {
         let arr: Array<UserForm> = JSON.parse(val);
         arr.map((user) => {
@@ -49,7 +49,7 @@ const saveToLocalStorage = (state: UserForm) => {
       allUsersDataArr.push(state);
       const serializable = JSON.stringify(allUsersDataArr);
       console.log(allUsersDataArr);
-      localStorage.setItem("userData", serializable);
+      localStorage.setItem("usersData", serializable);
     }
   } catch (e) {
     console.log(e);

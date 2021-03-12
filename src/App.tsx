@@ -16,21 +16,18 @@ const App = () => {
   return(
     <>
       <ToolBarComponent/>
-        <Router>
-          <div className="form-area">
-            <Forms/> 
-          </div>
-          {/* <div>
-            <DialogBoxComponent/>
-          </div> */}
             {console.log(selectUserForm)}
-        </Router>
         <Switch>
           <Route exact path="/" >
-            <Redirect to="/users/create">
-              <App/>
-              <ViewRecordComponent/>
-            </Redirect>
+            <Redirect to="/users/create"/>
+          </Route>
+          <Route path="/users/create">
+              <div className="form-area">
+                <Forms/> 
+              </div>
+          </Route>
+          <Route path="/users/view">
+            <ViewRecordComponent/>
           </Route>
         </Switch> 
     </>
