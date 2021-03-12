@@ -30,7 +30,7 @@ const initialState: UserForm = {
 };
 
 type Action = { type: "SET_FORM"; payload: UserForm };
-export let allUsersDataArr: UserForm[] = [];
+let allUsersDataArr: UserForm[] = [];
 
 const saveToLocalStorage = (state: UserForm) => {
   try {
