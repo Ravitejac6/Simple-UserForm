@@ -30,10 +30,10 @@ const initialState: UserForm = {
 };
 
 type Action = { type: "SET_FORM"; payload: UserForm };
-let allUsersDataArr: UserForm[] = [];
 
 const saveToLocalStorage = (state: UserForm) => {
   try {
+    let allUsersDataArr: UserForm[] = [];
     if (localStorage.getItem("usersData") !== null) {
       const val = localStorage.getItem("usersData");
       if (val) {

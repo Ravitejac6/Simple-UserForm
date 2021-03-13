@@ -71,8 +71,8 @@ export const Forms= () => {
       userImage : base64UserImage
     }
     dispatch(setForm(newUser));
-    //console.log(user);
   }
+  
 
   return (
     <div>
@@ -99,7 +99,14 @@ export const Forms= () => {
           />
         </FormGroup>
         <input type="file" className="upload-button" name="image" id="file" accept=".jpeg, .png, .jpg" onChange = {(e) => handleImageUpload(e)}/><br/>
-        <Button variant="contained" color="primary" type="submit" disabled={user === undefined ? true:false}>Submit</Button>
+        <Button 
+          variant="contained" 
+          color="primary" 
+          type="submit" 
+          disabled={user === undefined ? true:false}
+        >
+          Submit
+        </Button>
       </form>
       <DialogBoxComponent/>
     </div>

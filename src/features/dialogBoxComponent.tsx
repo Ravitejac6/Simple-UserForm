@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{FunctionComponent, useState} from 'react'
 import {Button, Dialog, Typography, List, ListItem} from '@material-ui/core'
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -59,6 +59,7 @@ const DialogContent = withStyles((theme: Theme) => ({
 
 
 
+
 export const DialogBoxComponent = () =>{
     const [open, setOpen] = useState(false);
     const selectUserForm:UserForm = useSelector((state:UserForm) => state)
@@ -74,7 +75,7 @@ export const DialogBoxComponent = () =>{
     return (
         <div className="dialog-box">
           <Button variant="contained" color="primary" onClick={handleClickOpen}>
-            Open dialog
+            Preview
           </Button>
           <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} maxWidth="md">
             <DialogTitle id="customized-dialog-title" onClose={handleClose}>
@@ -115,7 +116,10 @@ export const DialogBoxComponent = () =>{
             </DialogContent>
             <DialogActions>
               <Button autoFocus onClick={handleClose} color="primary">
-                Save changes
+                Submit
+              </Button>
+              <Button autoFocus onClick={handleClose} color="primary">
+                Cancel
               </Button>
             </DialogActions>
           </Dialog>
