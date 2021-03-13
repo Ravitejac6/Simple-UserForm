@@ -7,7 +7,8 @@ import {
 import {useForm} from 'react-hook-form'
 import {setForm} from '../../actions/actions'
 import {TextField, Button, Radio, RadioGroup, FormControlLabel, Checkbox,FormGroup} from '@material-ui/core';
-import {DialogBoxComponent} from '../dialogBoxComponent'
+import {DialogBoxComponent} from '../previewModalComponent'
+import {useHistory} from 'react-router-dom'
 
 
 export const Forms= () => {
@@ -21,6 +22,7 @@ export const Forms= () => {
   const {register, handleSubmit, errors} = useForm();
   const [user, setUser] = useState<UserForm | {}>();
   const [userTech, setUserTech] = useState<Technology>(intialStateUserTechnology);
+  const history = useHistory()
   let base64UserImage:string=''
 
   // Whenever users changes then the technologies need to updated for the user.
@@ -70,7 +72,8 @@ export const Forms= () => {
       python:userTech.python,
       userImage : base64UserImage
     }
-    dispatch(setForm(newUser));
+    dispatch(setForm(newUser))
+    history.push('/users/view')
   }
   
 
