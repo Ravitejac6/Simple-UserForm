@@ -73,29 +73,6 @@ export const ViewRecordComponent = () =>{
                     ))}
                 </GridList>
             </div>
-    {/* </div>
-            {allUsersData.map(user =>{
-                return(
-                <div key={user.email} className="records-view">
-                    <Card className={classes.root} variant="outlined">
-                        <CardHeader 
-                            title={user.firstName}
-                            subheader = {user.email}
-                        />
-                        <CardMedia src={`data:image/jpeg/png;base64,${user.userImage}`}/>
-                        <img src={`data:image/jpeg/png;base64,${user.userImage}`} alt="Image not loaded" width="275" height="325"/>
-                        <CardContent>
-                            <h4>{user.gender}</h4>
-                            <h4>{user.mobileNumber}</h4>
-                            {user.c === true?<h4>C</h4>:''}
-                            {user.c_plus === true?<h4>C_Plus</h4>:''}
-                            {user.python === true?<h4>Python</h4>:''}
-                        </CardContent>
-                    </Card>
-                    <img src={`data:image/jpeg/png;base64,${user.userImage}`} alt="Image not loaded" width="275" height="325"/>
-                </div>
-                )
-            })} */}
         </>
     )
 }

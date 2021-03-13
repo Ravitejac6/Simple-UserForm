@@ -1,5 +1,5 @@
 import React from 'react';
-import { Forms } from './features/forms/UserForm';
+import { Forms } from './features/forms/userFormComponent';
 import './App.css';
 import {UserForm} from './features/forms/reducer'
 import {useSelector} from 'react-redux'
