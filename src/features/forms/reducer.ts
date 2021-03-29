@@ -58,6 +58,19 @@ const saveToLocalStorage = (state: UserForm) => {
 
 const setUserFormReducer = (state: UserForm, action: Action) => {
   //console.log(action);
+  // Code for making requests
+  // fetch("/products", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: "my-auth-token",
+  //   },
+  //   body: JSON.stringify({
+  //     title: "new title",
+  //     description: "new product",
+  //     price: 100,
+  //   }),
+  // }).then((res) => res.json());
   saveToLocalStorage(action.payload);
   return {
     ...state,
