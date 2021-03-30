@@ -66,7 +66,6 @@ const setUserFormReducer = (state: UserForm, action: Action) => {
       email: action.payload.email,
       mobileNumber: action.payload.mobileNumber,
       image: action.payload.userImage,
-      //technology: action.payload.technology,
       c: action.payload.c,
       c_plus: action.payload.c_plus,
       python: action.payload.python,

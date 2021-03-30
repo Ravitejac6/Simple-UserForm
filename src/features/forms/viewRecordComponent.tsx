@@ -1,10 +1,17 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import {UserForm} from './reducer'
 import {Card, CardContent, CardHeader, GridList, GridListTile} from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 export const ViewRecordComponent = () =>{
     let allUsersData:UserForm[] = [];
 
+    useEffect(()=>{
+        axios.get('/records').then(res => {
+            const data = res.data
+            console.log(data)
+        })
+    },[])
     const loadData = () =>{
         const localStorageVal = localStorage.getItem('usersData')
         if(localStorageVal){
