@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export interface Technology {
   c: boolean;
   c_plus: boolean;
@@ -57,20 +59,19 @@ const saveToLocalStorage = (state: UserForm) => {
 };
 
 const setUserFormReducer = (state: UserForm, action: Action) => {
-  //console.log(action);
-  // Code for making requests
-  // fetch("/products", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: "my-auth-token",
-  //   },
-  //   body: JSON.stringify({
-  //     title: "new title",
-  //     description: "new product",
-  //     price: 100,
-  //   }),
-  // }).then((res) => res.json());
+  axios
+    .post("/records", {
+      firstName: action.payload.firstName,
+      gender: action.payload.gender,
+      email: action.payload.email,
+      mobileNumber: action.payload.mobileNumber,
+      image: action.payload.userImage,
+      //technology: action.payload.technology,
+      c: action.payload.c,
+      c_plus: action.payload.c_plus,
+      python: action.payload.python,
+    })
+    .then((res) => console.log(res));
   saveToLocalStorage(action.payload);
   return {
     ...state,
