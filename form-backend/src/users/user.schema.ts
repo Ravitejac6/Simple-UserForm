@@ -5,23 +5,25 @@ export type UserDocument = UserType & Document;
 
 @Schema()
 export class UserType {
-  // @Prop()
-  // firstName: string;
-  // @Prop()
-  // email: string;
-  // @Prop()
-  // gender: string;
-  // @Prop()
-  // mobileNumber: string;
-  // @Prop()
-  // image: string;
-  // @Prop()
-  // c: boolean;
-  // @Prop()
-  // c_plus: boolean;
-  // @Prop()
-  // python: boolean;
+  @Prop()
+  firstName: string;
+  @Prop()
+  email: string;
+  @Prop()
+  gender: string;
+  @Prop()
+  mobileNumber: string;
+  @Prop()
+  image: string;
+  @Prop()
+  c: boolean;
+  @Prop()
+  c_plus: boolean;
+  @Prop()
+  python: boolean;
 }
+
+export const UserSchema = SchemaFactory.createForClass(UserType);
 
 export interface UserFormType {
   firstName: string;
