@@ -9,6 +9,7 @@ import {setForm} from '../../actions/actions'
 import {TextField, Button, Radio, RadioGroup, FormControlLabel, Checkbox,FormGroup} from '@material-ui/core';
 import {DialogBoxComponent} from '../previewModalComponent'
 import {useHistory} from 'react-router-dom'
+import axios from 'axios';
 
 
 export const Forms= () => {
@@ -24,6 +25,7 @@ export const Forms= () => {
   const [userTech, setUserTech] = useState<Technology>(intialStateUserTechnology);
   const history = useHistory()
   let base64UserImage:string=''
+  let image_file:File;
 
   // Whenever users changes then the technologies need to updated for the user.
   useEffect(() =>{
@@ -50,6 +52,7 @@ export const Forms= () => {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) =>{
     if(e.target.files !== null){
       let file = e.target.files[0]
+      image_file = e.target.files[0]
       if(file){
           const reader = new FileReader()
           reader.addEventListener('loadend',() =>{
@@ -62,6 +65,11 @@ export const Forms= () => {
   }
 
   const onSubmit = (data:UserForm) =>{
+    let formData = new FormData()
+    formData.append('file',image_file,image_file.name)
+    axios.post('/records/upload',{
+      image: formData
+    })
     newUser = {
       firstName: data.firstName,
       email : data.email,
@@ -70,7 +78,7 @@ export const Forms= () => {
       c: userTech.c,
       c_plus: userTech.c_plus,
       python:userTech.python,
-      userImage : base64UserImage
+      userImage : base64UserImage,
     }
     dispatch(setForm(newUser))
     history.push('/users/view')

@@ -6,12 +6,16 @@ import axios from 'axios';
 export const ViewRecordComponent = () =>{
     let allUsersData:UserForm[] = [];
 
-    useEffect(()=>{
-        axios.get('/records').then(res => {
-            const data = res.data
-            console.log(data)
-        })
-    },[])
+    // useEffect(()=>{
+    //     axios.get('/records').then(res => {
+    //         console.log(res.data)
+    //         const data:Array<any> = res.data
+    //         console.log(data)
+    //         data.map((user) =>{
+    //             allUsersData.push(user)
+    //         })
+    //     })
+    // },[])
     const loadData = () =>{
         const localStorageVal = localStorage.getItem('usersData')
         if(localStorageVal){

@@ -11,6 +11,7 @@ export interface UserForm extends Technology {
   email: string;
   mobileNumber: string;
   userImage: string;
+  image_file?: FormData | string; //Image file used to store the image path
 }
 
 // const intialStateTechnology: Technology = {
@@ -29,6 +30,7 @@ const initialState: UserForm = {
   c: false,
   c_plus: false,
   python: false,
+  image_file: "",
 };
 
 type Action = { type: "SET_FORM"; payload: UserForm };
@@ -58,19 +60,25 @@ const saveToLocalStorage = (state: UserForm) => {
   }
 };
 
-const setUserFormReducer = (state: UserForm, action: Action) => {
+const postRequestData = (action: Action) => {
   axios
     .post("/records", {
       firstName: action.payload.firstName,
       gender: action.payload.gender,
       email: action.payload.email,
       mobileNumber: action.payload.mobileNumber,
-      image: action.payload.userImage,
+      //image: action.payload.userImage,
+      image: "imageRoy",
+      file_image: action.payload.image_file,
       c: action.payload.c,
       c_plus: action.payload.c_plus,
       python: action.payload.python,
     })
     .then((res) => console.log(res));
+};
+
+const setUserFormReducer = (state: UserForm, action: Action) => {
+  postRequestData(action);
   saveToLocalStorage(action.payload);
   return {
     ...state,
