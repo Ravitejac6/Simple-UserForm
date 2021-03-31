@@ -9,13 +9,15 @@ export class UsersService {
     @InjectModel('records') private readonly userModel: Model<UserDocument>,
   ) {}
 
+  imageFilePath: string;
+
   addUser(user: UserFormType): Promise<String> {
     const newUser = new this.userModel({
       firstName: user.firstName,
       gender: user.gender,
       email: user.email,
       mobileNumber: user.mobileNumber,
-      image: user.image,
+      image: this.imageFilePath,
       c: user.c,
       c_plus: user.c_plus,
       python: user.python,
@@ -52,5 +54,9 @@ export class UsersService {
     }
     if (!user) throw new NotFoundException('Could not find record');
     return user;
+  }
+  uploadFile(filePath: string) {
+    // this.imageFilePath = filePath;
+    // return filePath;
   }
 }

@@ -5,6 +5,7 @@ import {
   Param,
   Patch,
   Post,
+  Res,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -14,6 +15,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import path = require('path');
 import { v4 as uuidv4 } from 'uuid';
+import { join } from 'path';
 
 export const storage = {
   storage: diskStorage({
@@ -53,8 +55,14 @@ export class UsersController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file', storage))
-  uploadFile(@UploadedFile() file) {
+  async uploadFile(@UploadedFile() file) {
     console.log(file.filename);
-    return { imgPath: file.filename };
+    //await this.usersService.uploadFile(file.filename);
+    return file.filename;
+  }
+
+  @Get(':imagePath')
+  findImage(@Param('imagePath') imgPath: string, @Res() res) {
+    return res.sendFile(join(process.cwd(), 'uploads/' + imgPath));
   }
 }

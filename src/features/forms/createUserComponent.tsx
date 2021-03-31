@@ -66,9 +66,12 @@ export const Forms= () => {
 
   const onSubmit = (data:UserForm) =>{
     let formData = new FormData()
+    let imgVal = ''
     formData.append('file',image_file,image_file.name)
     axios.post('/records/upload',{
       image: formData
+    }).then(val => {imgVal =val.data;console.log(imgVal)}).catch(err =>{
+      console.log(err);
     })
     newUser = {
       firstName: data.firstName,
@@ -79,6 +82,7 @@ export const Forms= () => {
       c_plus: userTech.c_plus,
       python:userTech.python,
       userImage : base64UserImage,
+      image_file:imgVal
     }
     dispatch(setForm(newUser))
     history.push('/users/view')
