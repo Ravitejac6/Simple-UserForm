@@ -17,7 +17,7 @@ export class UsersService {
       gender: user.gender,
       email: user.email,
       mobileNumber: user.mobileNumber,
-      image: this.imageFilePath,
+      image: user.image,
       c: user.c,
       c_plus: user.c_plus,
       python: user.python,

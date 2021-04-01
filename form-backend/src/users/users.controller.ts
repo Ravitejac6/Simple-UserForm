@@ -16,6 +16,7 @@ import { diskStorage } from 'multer';
 import path = require('path');
 import { v4 as uuidv4 } from 'uuid';
 import { join } from 'path';
+import { Observable, of } from 'rxjs';
 
 export const storage = {
   storage: diskStorage({
@@ -55,9 +56,8 @@ export class UsersController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file', storage))
-  async uploadFile(@UploadedFile() file) {
+  uploadFile(@UploadedFile() file, @Res() res) {
     console.log(file.filename);
-    //await this.usersService.uploadFile(file.filename);
     return file.filename;
   }
 

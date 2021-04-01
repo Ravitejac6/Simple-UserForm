@@ -68,11 +68,13 @@ export const Forms= () => {
     let formData = new FormData()
     let imgVal = ''
     formData.append('file',image_file,image_file.name)
-    axios.post('/records/upload',{
-      image: formData
-    }).then(val => {imgVal =val.data;console.log(imgVal)}).catch(err =>{
-      console.log(err);
-    })
+    console.log("FileName"+image_file.name)
+    try{
+      fetch('/records/upload',{
+        method:'POST',
+        body:formData
+      }).then(res => res.json()).then(data => console.log(data))
+    }catch(err){console.log(err)}
     newUser = {
       firstName: data.firstName,
       email : data.email,
@@ -82,7 +84,7 @@ export const Forms= () => {
       c_plus: userTech.c_plus,
       python:userTech.python,
       userImage : base64UserImage,
-      image_file:imgVal
+      file:imgVal
     }
     dispatch(setForm(newUser))
     history.push('/users/view')
@@ -113,7 +115,7 @@ export const Forms= () => {
             label="Python"
           />
         </FormGroup>
-        <input type="file" className="upload-button" name="image" id="file" accept=".jpeg, .png, .jpg" onChange = {(e) => handleImageUpload(e)}/><br/>
+        <input type="file" className="upload-button" name="file" id="file" accept=".jpeg, .png, .jpg" onChange = {(e) => handleImageUpload(e)}/><br/>
         <Button 
           variant="contained" 
           color="primary" 

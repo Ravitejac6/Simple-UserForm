@@ -60,7 +60,7 @@ export const ViewRecordComponent = () =>{
     return(
         <>
             <h4>Users Records View</h4>
-            {console.log(allUsersData)}
+            {/* {console.log(allUsersData)} */}
             <div className={classes.root}>
                 <GridList cellHeight={700} className={classes.gridList} cols={3}>
                     {allUsersData.map((user) => (

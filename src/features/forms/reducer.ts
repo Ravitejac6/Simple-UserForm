@@ -11,7 +11,7 @@ export interface UserForm extends Technology {
   email: string;
   mobileNumber: string;
   userImage: string;
-  image_file?: FormData | string; //Image file used to store the image path
+  file?: FormData | string; //Image file used to store the image path
 }
 
 // const intialStateTechnology: Technology = {
@@ -30,7 +30,7 @@ const initialState: UserForm = {
   c: false,
   c_plus: false,
   python: false,
-  image_file: "",
+  file: "",
 };
 
 type Action = { type: "SET_FORM"; payload: UserForm };
@@ -47,7 +47,7 @@ const saveToLocalStorage = (state: UserForm) => {
         });
         allUsersDataArr.push(state);
         localStorage.setItem("usersData", JSON.stringify(allUsersDataArr));
-        console.log(allUsersDataArr);
+        //console.log(allUsersDataArr);
       }
     } else {
       allUsersDataArr.push(state);
@@ -61,20 +61,18 @@ const saveToLocalStorage = (state: UserForm) => {
 };
 
 const postRequestData = (action: Action) => {
-  axios
-    .post("/records", {
-      firstName: action.payload.firstName,
-      gender: action.payload.gender,
-      email: action.payload.email,
-      mobileNumber: action.payload.mobileNumber,
-      //image: action.payload.userImage,
-      image: "imageRoy",
-      file_image: action.payload.image_file,
-      c: action.payload.c,
-      c_plus: action.payload.c_plus,
-      python: action.payload.python,
-    })
-    .then((res) => console.log(res));
+  axios.post("/records", {
+    firstName: action.payload.firstName,
+    gender: action.payload.gender,
+    email: action.payload.email,
+    mobileNumber: action.payload.mobileNumber,
+    //image: action.payload.userImage,
+    image: "imageRoy",
+    file_image: action.payload.file,
+    c: action.payload.c,
+    c_plus: action.payload.c_plus,
+    python: action.payload.python,
+  });
 };
 
 const setUserFormReducer = (state: UserForm, action: Action) => {
