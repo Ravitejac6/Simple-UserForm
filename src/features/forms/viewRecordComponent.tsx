@@ -1,18 +1,32 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import {UserForm} from './reducer'
-import {Card, CardContent, CardHeader, GridList, GridListTile} from '@material-ui/core'
+import {Button, Card, CardActions, CardContent, CardHeader, GridList, GridListTile} from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-export const ViewRecordComponent = () =>{
-    let allUsersData:UserForm[] = [];
+import DeleteIcon from '@material-ui/icons/Delete'
+import CreateIcon from '@material-ui/icons/Create'
 
+
+export const ViewRecordComponent = () =>{
+    let data_arr:UserForm[] = [];
+    const [allUsersData, setAllUsersData] = useState<UserForm[]>([])
     useEffect(()=>{
         axios.get('/records').then(res => {
             const data:Array<any> = res.data
-            console.log(data)
             data.map((user) =>{
-                allUsersData.push(user)
+                let newUser:UserForm = {
+                    firstName: user.firstName,
+                    email: user.email,
+                    gender:user.gender,
+                    mobileNumber:user.mobileNumber,
+                    c:user.c,
+                    c_plus:user.c_plus,
+                    python:user.python,
+                    userImage:user.image
+                }
+                data_arr.push(newUser)
             })
+            setAllUsersData(data_arr)
         })
     },[])
     // const loadData = () =>{
@@ -70,7 +84,8 @@ export const ViewRecordComponent = () =>{
                                     subheader = {user.email}
                                 />
                                 {/* <CardMedia src={`data:image/jpeg/png;base64,${user.userImage}`}/> */}
-                                <img src={`data:image/jpeg/png;base64,${user.userImage}`} alt="Image not loaded" width="275" height="250"/>
+                                {/* <img src={`data:image/jpeg/png;base64,${user.userImage}`} alt="Image not loaded" width="275" height="250"/> */}
+                                <img src={`../../form-backend/uploads/${user.userImage}%e2%80%93`} alt="Image not loaded" width="275" height="250"/>
                                 <CardContent>
                                     <h4>{user.gender}</h4>
                                     <h4>{user.mobileNumber}</h4>
@@ -78,6 +93,14 @@ export const ViewRecordComponent = () =>{
                                     {user.c_plus === true?<h4>C_Plus</h4>:''}
                                     {user.python === true?<h4>Python</h4>:''}
                                 </CardContent>
+                                <CardActions>
+                                    <Button size="small" color="primary" variant="contained" startIcon={<CreateIcon/>}>
+                                        Edit
+                                    </Button>
+                                    <Button size="small" color="secondary" variant="contained" startIcon={<DeleteIcon/>}>
+                                        Delete
+                                    </Button>
+                                </CardActions>
                             </Card>
                         </GridListTile>
                     ))}
