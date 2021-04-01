@@ -23,6 +23,8 @@ export const Forms= () => {
   const {register, handleSubmit, errors} = useForm();
   const [user, setUser] = useState<UserForm | {}>();
   const [userTech, setUserTech] = useState<Technology>(intialStateUserTechnology);
+  const [imgVal, setImgVal] = useState(undefined) //imgVal to update
+  const [form_data, setFormData] = useState<UserForm | undefined>() // for fields to update
   const history = useHistory()
   let base64UserImage:string=''
   let image_file:File;
@@ -31,6 +33,13 @@ export const Forms= () => {
   useEffect(() =>{
     setUser(prevUser => ({ ...prevUser, technology: userTech}))
   },[userTech])
+
+  useEffect(() =>{
+    if(imgVal){
+      if(form_data)
+        uploadFields(form_data)
+    }
+  },[imgVal])
 
   let newUser:UserForm;
 
@@ -64,17 +73,7 @@ export const Forms= () => {
     }
   }
 
-  const onSubmit = (data:UserForm) =>{
-    let formData = new FormData()
-    let imgVal = ''
-    formData.append('file',image_file,image_file.name)
-    console.log("FileName"+image_file.name)
-    try{
-      fetch('/records/upload',{
-        method:'POST',
-        body:formData
-      }).then(res => res.json()).then(data => {imgVal = data.file;console.log(data.file)})
-    }catch(err){console.log(err)}
+  const uploadFields = (data:UserForm) =>{
     newUser = {
       firstName: data.firstName,
       email : data.email,
@@ -88,6 +87,31 @@ export const Forms= () => {
     }
     dispatch(setForm(newUser))
     history.push('/users/view')
+  }
+  const onSubmit = (data:UserForm) =>{
+    let formData = new FormData()
+    formData.append('file',image_file,image_file.name)
+    try{
+      fetch('/records/upload',{
+        method:'POST',
+        body:formData
+      }).then(res => res.json()).then(data => {setImgVal(data.file);console.log(data.file)})
+    }catch(err){console.log(err)}
+    console.log("Image value "+imgVal);
+    setFormData(data)
+    // newUser = {
+    //   firstName: data.firstName,
+    //   email : data.email,
+    //   gender:data.gender,
+    //   mobileNumber : data.mobileNumber,
+    //   c: userTech.c,
+    //   c_plus: userTech.c_plus,
+    //   python:userTech.python,
+    //   userImage : base64UserImage,
+    //   file:imgVal
+    // }
+    // dispatch(setForm(newUser))
+    // history.push('/users/view')
   }
   
 

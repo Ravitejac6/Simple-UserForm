@@ -6,27 +6,26 @@ import axios from 'axios';
 export const ViewRecordComponent = () =>{
     let allUsersData:UserForm[] = [];
 
-    // useEffect(()=>{
-    //     axios.get('/records').then(res => {
-    //         console.log(res.data)
-    //         const data:Array<any> = res.data
-    //         console.log(data)
-    //         data.map((user) =>{
-    //             allUsersData.push(user)
-    //         })
-    //     })
-    // },[])
-    const loadData = () =>{
-        const localStorageVal = localStorage.getItem('usersData')
-        if(localStorageVal){
-            let arr: Array<UserForm> = JSON.parse(localStorageVal);
-            arr.map((user) => {
-                allUsersData.push(user);
-            });
-        }
-    }
+    useEffect(()=>{
+        axios.get('/records').then(res => {
+            const data:Array<any> = res.data
+            console.log(data)
+            data.map((user) =>{
+                allUsersData.push(user)
+            })
+        })
+    },[])
+    // const loadData = () =>{
+    //     const localStorageVal = localStorage.getItem('usersData')
+    //     if(localStorageVal){
+    //         let arr: Array<UserForm> = JSON.parse(localStorageVal);
+    //         arr.map((user) => {
+    //             allUsersData.push(user);
+    //         });
+    //     }
+    // }
 
-    loadData()
+    // loadData()
 
     const useStyles = makeStyles((theme: Theme) =>
         createStyles({
@@ -60,7 +59,7 @@ export const ViewRecordComponent = () =>{
     return(
         <>
             <h4>Users Records View</h4>
-            {/* {console.log(allUsersData)} */}
+            {console.log(allUsersData)}
             <div className={classes.root}>
                 <GridList cellHeight={700} className={classes.gridList} cols={3}>
                     {allUsersData.map((user) => (

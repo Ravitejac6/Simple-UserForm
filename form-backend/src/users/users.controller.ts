@@ -43,9 +43,9 @@ export class UsersController {
 
   @Get()
   async getUsers() {
-    const res = await this.usersService.getUsers();
-    console.log(res);
-    return res;
+    const users = await this.usersService.getUsers();
+    console.log(users);
+    return users;
   }
 
   @Patch(':id')
