@@ -17,7 +17,6 @@ import { diskStorage } from 'multer';
 import path = require('path');
 import { v4 as uuidv4 } from 'uuid';
 import { join } from 'path';
-import { Observable, of } from 'rxjs';
 
 export const storage = {
   storage: diskStorage({
@@ -72,8 +71,8 @@ export class UsersController {
     return res.send({ file: file.filename });
   }
 
-  @Get(':imagePath')
-  findImage(@Param('imagePath') imgPath: string, @Res() res) {
+  @Get('getFile/:filename')
+  findImage(@Param('filename') imgPath: string, @Res() res) {
     return res.sendFile(join(process.cwd(), 'uploads/' + imgPath));
   }
 }

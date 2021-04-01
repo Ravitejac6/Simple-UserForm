@@ -33,11 +33,13 @@ export const DeleteButtonDialogComponent: FunctionComponent<Props> = (
     setDel(val);
     console.log(props.userEmail);
     setOpen(false);
-    fetch("/records/" + props.userEmail, {
-      method: "DELETE",
-    }).catch((err) => {
-      console.log(err);
-    });
+    if (val === "yes") {
+      fetch("/records/" + props.userEmail, {
+        method: "DELETE",
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
   };
 
   return (

@@ -16,9 +16,9 @@ import CreateIcon from "@material-ui/icons/Create";
 import { DeleteButtonDialogComponent } from "../deleteButtonDialgoComponent";
 
 export const ViewRecordComponent = () => {
-  let data_arr: UserForm[] = [];
   const [allUsersData, setAllUsersData] = useState<UserForm[]>([]);
   useEffect(() => {
+    let data_arr: UserForm[] = [];
     axios.get("/records").then((res) => {
       const data: Array<any> = res.data;
       data.map((user) => {
