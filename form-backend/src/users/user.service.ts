@@ -31,8 +31,8 @@ export class UsersService {
     return users;
   }
 
-  async updateUser(userId: string, user: UserFormType) {
-    const updatedUser = await this.findUser(userId);
+  async updateUser(userEmail: string, user: UserFormType) {
+    const updatedUser = await this.findUser(userEmail);
     if (user.firstName) updatedUser.firstName = user.firstName;
     if (user.gender) updatedUser.gender = user.gender;
     if (user.mobileNumber) updatedUser.mobileNumber = user.mobileNumber;
@@ -45,18 +45,21 @@ export class UsersService {
     console.log(updatedUser);
   }
 
-  async findUser(userId: string): Promise<UserDocument> {
+  async findUser(userEmail: string): Promise<UserDocument> {
     let user;
     try {
-      user = await this.userModel.findById(userId).exec();
+      user = await this.userModel.findOne({ email: userEmail }).exec();
     } catch (error) {
       throw new NotFoundException('Could not find the record');
     }
     if (!user) throw new NotFoundException('Could not find record');
     return user;
   }
-  uploadFile(filePath: string) {
-    // this.imageFilePath = filePath;
-    // return filePath;
+
+  async deleteUser(userEmail: string) {
+    const res = await this.userModel.deleteOne({ email: userEmail }).exec();
+    if (res.n === 0) {
+      throw new NotFoundException('Could not find record');
+    }
   }
 }

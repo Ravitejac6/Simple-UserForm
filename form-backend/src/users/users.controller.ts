@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -48,9 +49,19 @@ export class UsersController {
     return users;
   }
 
-  @Patch(':id')
-  async updateUser(@Param('id') userId: string, @Body() user: UserFormType) {
-    await this.usersService.updateUser(userId, user);
+  @Patch(':email')
+  async updateUser(
+    @Param('email') userEmail: string,
+    @Body() user: UserFormType,
+  ) {
+    await this.usersService.updateUser(userEmail, user);
+    return null;
+  }
+
+  @Delete(':email')
+  async deleteUser(@Param('email') userEmail: string) {
+    console.log(userEmail);
+    await this.usersService.deleteUser(userEmail);
     return null;
   }
 

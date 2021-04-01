@@ -70,6 +70,17 @@ export const ViewRecordComponent = () =>{
 
     const classesForCard = useStylesForCard();
     const classes = useStyles()
+
+    const handleEditUser = (userEmail:string) =>{
+        console.log(userEmail)
+    }
+
+    const handleDeleteUser = (userEmail:string) =>{
+        console.log(userEmail)
+        fetch('/records/'+userEmail,{
+            method:'DELETE'
+        }).catch(err => {console.log(err)})
+    }
     return(
         <>
             <h4>Users Records View</h4>
@@ -85,7 +96,7 @@ export const ViewRecordComponent = () =>{
                                 />
                                 {/* <CardMedia src={`data:image/jpeg/png;base64,${user.userImage}`}/> */}
                                 {/* <img src={`data:image/jpeg/png;base64,${user.userImage}`} alt="Image not loaded" width="275" height="250"/> */}
-                                <img src={`../../form-backend/uploads/${user.userImage}%e2%80%93`} alt="Image not loaded" width="275" height="250"/>
+                                <img src="" alt="Image not loaded" width="275" height="250"/>
                                 <CardContent>
                                     <h4>{user.gender}</h4>
                                     <h4>{user.mobileNumber}</h4>
@@ -94,10 +105,22 @@ export const ViewRecordComponent = () =>{
                                     {user.python === true?<h4>Python</h4>:''}
                                 </CardContent>
                                 <CardActions>
-                                    <Button size="small" color="primary" variant="contained" startIcon={<CreateIcon/>}>
+                                    <Button 
+                                        size="small" 
+                                        color="primary" 
+                                        variant="contained" 
+                                        startIcon={<CreateIcon/>}
+                                        onClick={() => handleEditUser(user.email)}
+                                    >
                                         Edit
                                     </Button>
-                                    <Button size="small" color="secondary" variant="contained" startIcon={<DeleteIcon/>}>
+                                    <Button 
+                                        size="small" 
+                                        color="secondary" 
+                                        variant="contained" 
+                                        startIcon={<DeleteIcon/>}
+                                        onClick = {() => handleDeleteUser(user.email)}
+                                    >
                                         Delete
                                     </Button>
                                 </CardActions>
