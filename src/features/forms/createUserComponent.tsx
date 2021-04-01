@@ -73,7 +73,7 @@ export const Forms= () => {
       fetch('/records/upload',{
         method:'POST',
         body:formData
-      }).then(res => res.json()).then(data => console.log(data))
+      }).then(res => res.json()).then(data => {imgVal = data.file;console.log(data.file)})
     }catch(err){console.log(err)}
     newUser = {
       firstName: data.firstName,

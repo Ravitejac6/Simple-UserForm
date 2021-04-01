@@ -67,7 +67,7 @@ const postRequestData = (action: Action) => {
     email: action.payload.email,
     mobileNumber: action.payload.mobileNumber,
     //image: action.payload.userImage,
-    image: "imageRoy",
+    image: action.payload.file,
     file_image: action.payload.file,
     c: action.payload.c,
     c_plus: action.payload.c_plus,

@@ -58,7 +58,7 @@ export class UsersController {
   @UseInterceptors(FileInterceptor('file', storage))
   uploadFile(@UploadedFile() file, @Res() res) {
     console.log(file.filename);
-    return file.filename;
+    return res.send({ file: file.filename });
   }
 
   @Get(':imagePath')
