@@ -72,11 +72,15 @@ const postRequestData = (action: SetFormAction) => {
 };
 
 const patchRequestData = (action: UpdateFormAction) => {
-  fetch("/records/" + action.payload.email, {
-    method: "PATCH",
-    body: JSON.stringify(action.payload),
-  }).catch((err) => {
-    console.log(err);
+  axios.patch("/records/" + action.payload.email, {
+    firstName: action.payload.firstName,
+    gender: action.payload.gender,
+    email: action.payload.email,
+    mobileNumber: action.payload.mobileNumber,
+    userImage: action.payload.userImage,
+    c: action.payload.c,
+    c_plus: action.payload.c_plus,
+    python: action.payload.python,
   });
 };
 

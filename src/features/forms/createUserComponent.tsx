@@ -115,7 +115,6 @@ export const Forms = () => {
       file: imgVal,
     };
     if (selectEditUser.email.length < 1) {
-      console.log("Getting empty kanna");
       dispatch(setForm(newUser));
     } else {
       dispatch(UpdateForm(newUser));
