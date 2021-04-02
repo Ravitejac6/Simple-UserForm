@@ -36,8 +36,8 @@ export const Forms = () => {
 
   // printing the current state of UserForm
 
-  const selectUser: UserForm = useSelector((state: UserForm) => state);
-  console.log("Checking the state" + selectUser.email);
+  const selectEditUser: UserForm = useSelector((state: UserForm) => state);
+  console.log("Checking the state" + selectEditUser.email);
 
   // Whenever users changes then the technologies need to updated for the user.
   useEffect(() => {
@@ -128,6 +128,7 @@ export const Forms = () => {
         <TextField
           name="firstName"
           label="First Name"
+          value={selectEditUser.firstName}
           onChange={(e) => handleUserData(e)}
           inputRef={register({
             required: "First Name is required.",
@@ -154,12 +155,14 @@ export const Forms = () => {
         <TextField
           name="email"
           label="Email"
+          value={selectEditUser.email}
           onChange={(e) => handleUserData(e)}
           inputRef={register}
         />
         <TextField
           name="mobileNumber"
           label="Mobile Number"
+          value={selectEditUser.mobileNumber}
           onChange={(e) => handleUserData(e)}
           inputRef={register}
         />
