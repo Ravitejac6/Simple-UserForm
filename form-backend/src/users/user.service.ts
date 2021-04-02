@@ -33,6 +33,7 @@ export class UsersService {
 
   async updateUser(userEmail: string, user: UserFormType) {
     const updatedUser = await this.findUser(userEmail);
+    console.log(user);
     if (user.firstName) updatedUser.firstName = user.firstName;
     if (user.gender) updatedUser.gender = user.gender;
     if (user.mobileNumber) updatedUser.mobileNumber = user.mobileNumber;
@@ -43,6 +44,7 @@ export class UsersService {
     if (user.python) updatedUser.python = user.python;
     updatedUser.save();
     console.log(updatedUser);
+    return updatedUser;
   }
 
   async findUser(userEmail: string): Promise<UserDocument> {

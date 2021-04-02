@@ -71,6 +71,15 @@ const postRequestData = (action: SetFormAction) => {
   });
 };
 
+const patchRequestData = (action: UpdateFormAction) => {
+  fetch("/records/" + action.payload.email, {
+    method: "PATCH",
+    body: JSON.stringify(action.payload),
+  }).catch((err) => {
+    console.log(err);
+  });
+};
+
 const setUserFormReducer = (state: UserForm, action: SetFormAction) => {
   postRequestData(action);
   saveToLocalStorage(action.payload);
@@ -87,20 +96,21 @@ const setUserFormReducer = (state: UserForm, action: SetFormAction) => {
   };
 };
 
-// const updateFormReducer = (state: UserForm, action: UpdateFormAction) => {
-//   console.log("Update Form" + action.payload);
-//   return {
-//     ...state,
-//     firstName: action.payload.firstName,
-//     gender: action.payload.gender,
-//     email: action.payload.email,
-//     mobileNumber: action.payload.mobileNumber,
-//     userImage: action.payload.userImage,
-//     c: action.payload.c,
-//     c_plus: action.payload.c_plus,
-//     python: action.payload.python,
-//   };
-// };
+const updateFormReducer = (state: UserForm, action: UpdateFormAction) => {
+  patchRequestData(action);
+  console.log("Update Form" + action.payload);
+  return {
+    ...state,
+    firstName: action.payload.firstName,
+    gender: action.payload.gender,
+    email: action.payload.email,
+    mobileNumber: action.payload.mobileNumber,
+    userImage: action.payload.userImage,
+    c: action.payload.c,
+    c_plus: action.payload.c_plus,
+    python: action.payload.python,
+  };
+};
 
 const editFormReducer = (state: UserForm, action: EditFormAction) => {
   console.log("Edit form" + action.payload.email);
@@ -125,9 +135,9 @@ export const formReducer = (
     case "SET_FORM": {
       return setUserFormReducer(state, action);
     }
-    // case "UPDATE_FORM": {
-    //   return updateFormReducer(state, action);
-    // }
+    case "UPDATE_FORM": {
+      return updateFormReducer(state, action);
+    }
     case "EDIT_FORM": {
       return editFormReducer(state, action);
     }

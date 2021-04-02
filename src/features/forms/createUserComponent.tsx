@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UserForm, Technology } from "./reducer";
 import { useForm } from "react-hook-form";
-import { setForm } from "../../actions/actions";
+import { setForm, UpdateForm } from "../../actions/actions";
 import {
   TextField,
   Button,
@@ -86,6 +86,7 @@ export const Forms = () => {
     if (e.target.files !== null) {
       let file = e.target.files[0];
       image_file = e.target.files[0];
+      console.log(image_file.name);
       if (file) {
         const reader = new FileReader();
         reader.addEventListener(
@@ -113,7 +114,12 @@ export const Forms = () => {
       userImage: base64UserImage,
       file: imgVal,
     };
-    dispatch(setForm(newUser));
+    if (selectEditUser.email.length < 1) {
+      console.log("Getting empty kanna");
+      dispatch(setForm(newUser));
+    } else {
+      dispatch(UpdateForm(newUser));
+    }
     history.push("/users/view");
   };
   const onSubmit = (data: UserForm) => {

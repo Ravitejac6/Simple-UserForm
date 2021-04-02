@@ -53,8 +53,8 @@ export class UsersController {
     @Param('email') userEmail: string,
     @Body() user: UserFormType,
   ) {
-    await this.usersService.updateUser(userEmail, user);
-    return null;
+    const updated_user = await this.usersService.updateUser(userEmail, user);
+    return updated_user;
   }
 
   @Delete(':email')
