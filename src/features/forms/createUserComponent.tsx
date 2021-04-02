@@ -14,9 +14,18 @@ import {
 } from "@material-ui/core";
 import { DialogBoxComponent } from "../previewModalComponent";
 import { useHistory } from "react-router-dom";
-import { RootState, store } from "../../app/store";
 
 export const Forms = () => {
+  let initialStateUser: UserForm = {
+    firstName: "",
+    email: "",
+    mobileNumber: "",
+    gender: "",
+    c: false,
+    c_plus: false,
+    python: false,
+    userImage: "",
+  };
   let intialStateUserTechnology: Technology = {
     c: false,
     c_plus: false,
@@ -24,22 +33,27 @@ export const Forms = () => {
   };
   const dispatch = useDispatch();
   const { register, handleSubmit, errors } = useForm();
-  const [user, setUser] = useState<UserForm | {}>();
+  const [user, setUser] = useState<UserForm>(initialStateUser);
   const [userTech, setUserTech] = useState<Technology>(
     intialStateUserTechnology
   );
   const [imgVal, setImgVal] = useState(undefined); //imgVal to update
   const [form_data, setFormData] = useState<UserForm | undefined>(); // for fields to update
+  const [editUser, setEditUser] = useState<UserForm>(initialStateUser);
   const history = useHistory();
   let base64UserImage: string = "";
   let image_file: File;
 
   // printing the current state of UserForm
-
   const selectEditUser: UserForm = useSelector((state: UserForm) => state);
-  console.log("Checking the state" + selectEditUser.email);
 
+  // Used for the editUser detail rendering and set the state of the formData with editUser details
+  useEffect(() => {
+    setUser(selectEditUser);
+    console.log("Checking the state" + selectEditUser.email);
+  }, []);
   // Whenever users changes then the technologies need to updated for the user.
+
   useEffect(() => {
     setUser((prevUser) => ({ ...prevUser, technology: userTech }));
   }, [userTech]);
@@ -128,7 +142,7 @@ export const Forms = () => {
         <TextField
           name="firstName"
           label="First Name"
-          value={selectEditUser.firstName}
+          value={user.firstName}
           onChange={(e) => handleUserData(e)}
           inputRef={register({
             required: "First Name is required.",
@@ -155,14 +169,14 @@ export const Forms = () => {
         <TextField
           name="email"
           label="Email"
-          value={selectEditUser.email}
+          value={user.email}
           onChange={(e) => handleUserData(e)}
           inputRef={register}
         />
         <TextField
           name="mobileNumber"
           label="Mobile Number"
-          value={selectEditUser.mobileNumber}
+          value={user.mobileNumber}
           onChange={(e) => handleUserData(e)}
           inputRef={register}
         />
