@@ -39,7 +39,6 @@ export const Forms = () => {
   );
   const [imgVal, setImgVal] = useState(undefined); //imgVal to update
   const [form_data, setFormData] = useState<UserForm | undefined>(); // for fields to update
-  const [editUser, setEditUser] = useState<UserForm>(initialStateUser);
   const history = useHistory();
   let base64UserImage: string = "";
   let image_file: File;
