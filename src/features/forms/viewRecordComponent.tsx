@@ -11,12 +11,17 @@ import {
 } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import axios from "axios";
-import DeleteIcon from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
 import { DeleteButtonDialogComponent } from "../deleteButtonDialgoComponent";
+import { useDispatch } from "react-redux";
+import { editForm } from "../../actions/actions";
+import { useHistory } from "react-router";
 
 export const ViewRecordComponent = () => {
   const [allUsersData, setAllUsersData] = useState<UserForm[]>([]);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   useEffect(() => {
     let data_arr: UserForm[] = [];
     axios.get("/records").then((res) => {
@@ -79,7 +84,9 @@ export const ViewRecordComponent = () => {
   const classesForCard = useStylesForCard();
   const classes = useStyles();
 
-  const handleEditUser = (userEmail: string) => {
+  const handleEditUser = (userEmail: string, user: UserForm) => {
+    dispatch(editForm(user));
+    history.push("/users/create");
     console.log(userEmail);
   };
 
@@ -109,7 +116,7 @@ export const ViewRecordComponent = () => {
                     color="primary"
                     variant="contained"
                     startIcon={<CreateIcon />}
-                    onClick={() => handleEditUser(user.email)}
+                    onClick={() => handleEditUser(user.email, user)}
                   >
                     Edit
                   </Button>

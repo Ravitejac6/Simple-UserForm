@@ -1,4 +1,9 @@
 import axios from "axios";
+import {
+  SetFormAction,
+  UpdateFormAction,
+  EditFormAction,
+} from "../../actions/actions";
 
 export interface Technology {
   c: boolean;
@@ -14,26 +19,17 @@ export interface UserForm extends Technology {
   file?: FormData | string; //Image file used to store the image path
 }
 
-// const intialStateTechnology: Technology = {
-//   c: false,
-//   c_plus: false,
-//   python: false,
-// };
-
 const initialState: UserForm = {
   firstName: "",
   gender: "",
   email: "",
   mobileNumber: "",
   userImage: "",
-  //technology: intialStateTechnology,
   c: false,
   c_plus: false,
   python: false,
   file: "",
 };
-
-type Action = { type: "SET_FORM"; payload: UserForm };
 
 const saveToLocalStorage = (state: UserForm) => {
   try {
@@ -60,7 +56,7 @@ const saveToLocalStorage = (state: UserForm) => {
   }
 };
 
-const postRequestData = (action: Action) => {
+const postRequestData = (action: SetFormAction) => {
   axios.post("/records", {
     firstName: action.payload.firstName,
     gender: action.payload.gender,
@@ -75,7 +71,7 @@ const postRequestData = (action: Action) => {
   });
 };
 
-const setUserFormReducer = (state: UserForm, action: Action) => {
+const setUserFormReducer = (state: UserForm, action: SetFormAction) => {
   postRequestData(action);
   saveToLocalStorage(action.payload);
   return {
@@ -85,17 +81,55 @@ const setUserFormReducer = (state: UserForm, action: Action) => {
     email: action.payload.email,
     mobileNumber: action.payload.mobileNumber,
     userImage: action.payload.userImage,
-    //technology: action.payload.technology,
     c: action.payload.c,
     c_plus: action.payload.c_plus,
     python: action.payload.python,
   };
 };
 
-export const formReducer = (state: UserForm = initialState, action: Action) => {
+// const updateFormReducer = (state: UserForm, action: UpdateFormAction) => {
+//   console.log("Update Form" + action.payload);
+//   return {
+//     ...state,
+//     firstName: action.payload.firstName,
+//     gender: action.payload.gender,
+//     email: action.payload.email,
+//     mobileNumber: action.payload.mobileNumber,
+//     userImage: action.payload.userImage,
+//     c: action.payload.c,
+//     c_plus: action.payload.c_plus,
+//     python: action.payload.python,
+//   };
+// };
+
+const editFormReducer = (state: UserForm, action: EditFormAction) => {
+  console.log("Edit form" + action.payload.email);
+  return {
+    ...state,
+    firstName: action.payload.firstName,
+    gender: action.payload.gender,
+    email: action.payload.email,
+    mobileNumber: action.payload.mobileNumber,
+    userImage: action.payload.userImage,
+    c: action.payload.c,
+    c_plus: action.payload.c_plus,
+    python: action.payload.python,
+  };
+};
+
+export const formReducer = (
+  state: UserForm = initialState,
+  action: SetFormAction | UpdateFormAction | EditFormAction
+) => {
   switch (action.type) {
     case "SET_FORM": {
       return setUserFormReducer(state, action);
+    }
+    // case "UPDATE_FORM": {
+    //   return updateFormReducer(state, action);
+    // }
+    case "EDIT_FORM": {
+      return editFormReducer(state, action);
     }
     default: {
       return state;

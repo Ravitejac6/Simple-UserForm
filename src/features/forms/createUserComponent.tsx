@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserForm, Technology } from "./reducer";
 import { useForm } from "react-hook-form";
 import { setForm } from "../../actions/actions";
@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import { DialogBoxComponent } from "../previewModalComponent";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+import { RootState, store } from "../../app/store";
 
 export const Forms = () => {
   let intialStateUserTechnology: Technology = {
@@ -33,6 +33,11 @@ export const Forms = () => {
   const history = useHistory();
   let base64UserImage: string = "";
   let image_file: File;
+
+  // printing the current state of UserForm
+
+  const selectUser: UserForm = useSelector((state: UserForm) => state);
+  console.log("Checking the state" + selectUser.email);
 
   // Whenever users changes then the technologies need to updated for the user.
   useEffect(() => {
