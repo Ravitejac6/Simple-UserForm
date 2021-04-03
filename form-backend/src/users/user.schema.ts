@@ -5,21 +5,21 @@ export type UserDocument = UserType & Document;
 
 @Schema()
 export class UserType {
-  @Prop()
+  @Prop({ required: true })
   firstName: string;
-  @Prop()
+  @Prop({ required: true })
   email: string;
-  @Prop()
+  @Prop({ required: true })
   gender: string;
-  @Prop()
+  @Prop({ required: true })
   mobileNumber: string;
-  @Prop()
+  @Prop({ required: true })
   image: string;
-  @Prop()
+  @Prop({ required: true })
   c: boolean;
-  @Prop()
+  @Prop({ required: true })
   c_plus: boolean;
-  @Prop()
+  @Prop({ required: true })
   python: boolean;
 }
 
