@@ -4,8 +4,10 @@
 /node_modules
 /form-backend/node_modules
 /form-backend/dist
+/form-backend/mongo-volume
 /.pnp
 .pnp.js
+
 
 # testing
 /coverage

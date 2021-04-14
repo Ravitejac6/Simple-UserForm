@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  api:
+    # image: user-forms/nestjs-dockerized
+    build:
+      dockerfile: Dockerfile
+      context: .
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+    ports:
+      - '8080:3000'
+  database:
+    image: 'mongo'
+    container_name: 'user_form_mongo_container'
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'raviteja'
+      MONGO_INITDB_ROOT_PASSWORD: 'password'
+      MONGO_INITDB_ROOT_DATABASE: 'sample_db'
+    volumes:
+      - ./mongo-volume:/data/db
