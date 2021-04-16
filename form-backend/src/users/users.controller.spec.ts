@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { UsersService } from './user.service';
 import { UsersController } from './users.controller';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
+import { UsersFakeService } from './usersFakeService';
 
 describe('Users Controller', () => {
   let usersService: UsersService;
@@ -20,7 +21,10 @@ describe('Users Controller', () => {
       ],
       controllers: [UsersController],
       providers: [
-        UsersService,
+        {
+          provide: UsersService,
+          useClass: UsersFakeService,
+        },
         {
           provide: getModelToken(UserType.name),
           useValue: Model,
@@ -38,6 +42,11 @@ describe('Users Controller', () => {
   describe('User controller test cases', () => {
     it('Users controller defined', async () => {
       expect(usersController).toBeDefined();
+    });
+
+    it('getUsers in usersService', async () => {
+      usersController.getUsers();
+      expect(usersService.getUsers).toHaveBeenCalled();
     });
   });
 });
