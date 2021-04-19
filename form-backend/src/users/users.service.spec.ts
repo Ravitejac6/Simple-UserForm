@@ -4,9 +4,19 @@ import { Model } from 'mongoose';
 import { UsersService } from './user.service';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 
-describe('Users Controller', () => {
+describe('UsersService testing', () => {
   let usersService: UsersService;
   let mockUserModel: Model<UserDocument>;
+  const user: UserType = {
+    firstName: 'abc',
+    email: 'abc@gmail.com',
+    gender: 'male',
+    mobileNumber: '123456789',
+    image: 'xyz.jpg',
+    c: true,
+    c_plus: true,
+    python: false,
+  };
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
@@ -36,17 +46,6 @@ describe('Users Controller', () => {
   });
 
   it('find the user by userEmail', async () => {
-    const user: UserType = {
-      firstName: 'abc',
-      email: 'abc@gmail.com',
-      gender: 'male',
-      mobileNumber: '123456789',
-      image: 'xyz.jpg',
-      c: true,
-      c_plus: true,
-      python: false,
-    };
-
     const mockUserModelFindByEmailSpy = jest
       .spyOn(mockUserModel, 'findOne')
       .mockImplementation(() => {
@@ -59,5 +58,16 @@ describe('Users Controller', () => {
     console.log(foundUser);
     expect(mockUserModelFindByEmailSpy).toBeCalled();
     expect(foundUser).toBe(user);
+  });
+
+  it('Inserting a user returns a email', async () => {
+    const mockUserModelSaveSpy = jest
+      .spyOn(mockUserModel.prototype, 'save')
+      .mockImplementation(() => Promise.resolve(user));
+    const savedUserEmail = await usersService.addUser(user);
+    console.log(savedUserEmail);
+    expect(savedUserEmail).toBe('abc@gmail.com');
+    expect(mockUserModelSaveSpy).toBeCalled();
+    expect(mockUserModelSaveSpy).toBeCalledTimes(1);
   });
 });

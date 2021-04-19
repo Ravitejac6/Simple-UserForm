@@ -11,7 +11,7 @@ export class UsersService {
 
   imageFilePath: string;
 
-  addUser(user: UserFormType): Promise<String> {
+  async addUser(user: UserFormType): Promise<String> {
     const newUser = new this.userModel({
       firstName: user.firstName,
       gender: user.gender,
@@ -22,8 +22,8 @@ export class UsersService {
       c_plus: user.c_plus,
       python: user.python,
     });
-    newUser.save();
-    return newUser._id;
+    const res = await newUser.save();
+    return res.email;
   }
 
   async getUsers(): Promise<UserFormType[]> {
