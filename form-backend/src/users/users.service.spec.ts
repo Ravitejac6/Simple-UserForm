@@ -1,10 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import {
-  UserType,
-  UserDocument,
-  UserSchema,
-  UserFormType,
-} from './user.schema';
+import { UserType, UserDocument, UserSchema } from './user.schema';
 import { Model } from 'mongoose';
 import { UsersService } from './user.service';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
@@ -61,6 +56,9 @@ describe('UsersService testing', () => {
 
     const foundUser = await usersService.findUser('abc@gmail.com');
     expect(mockUserModelFindByEmailSpy).toBeCalled();
+    expect(mockUserModelFindByEmailSpy).toHaveBeenCalledWith({
+      email: 'abc@gmail.com',
+    });
     expect(foundUser).toBe(user);
   });
 
@@ -89,6 +87,9 @@ describe('UsersService testing', () => {
     console.log(deletedUser);
     expect(deletedUser).toBeTruthy();
     expect(mockUserDeleteByEmailSpy).toBeCalled();
+    expect(mockUserDeleteByEmailSpy).toHaveBeenCalledWith({
+      email: 'abc@gmail.com',
+    });
   });
 
   it('Get users returns an array of Users', async () => {
