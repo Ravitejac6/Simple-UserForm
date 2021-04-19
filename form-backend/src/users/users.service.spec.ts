@@ -70,4 +70,20 @@ describe('UsersService testing', () => {
     expect(mockUserModelSaveSpy).toBeCalled();
     expect(mockUserModelSaveSpy).toBeCalledTimes(1);
   });
+
+  it('Deleting a user', async () => {
+    const mockUserDeleteByEmailSpy = jest
+      .spyOn(mockUserModel, 'deleteOne')
+      .mockImplementation(() => {
+        return {
+          exec: jest.fn().mockResolvedValue({
+            deletedCount: 1,
+          }),
+        } as any;
+      });
+
+    const deletedUser = await usersService.deleteUser('abc@gmail.com');
+    console.log(deletedUser);
+    expect(deletedUser).toBeTruthy();
+  });
 });

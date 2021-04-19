@@ -62,5 +62,6 @@ export class UsersService {
     if (res.n === 0) {
       throw new NotFoundException('Could not find record');
     }
+    return res.deletedCount;
   }
 }
