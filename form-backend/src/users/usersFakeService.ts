@@ -1,4 +1,4 @@
-import { UserType } from './user.schema';
+import { UserDocument, UserFormType, UserType } from './user.schema';
 
 // FakeUserService is used for testing purpose in the UserController.spec.ts
 export const users: UserType[] = [
@@ -35,7 +35,28 @@ export const users: UserType[] = [
 ];
 
 export class UsersFakeService {
+  user: UserFormType = {
+    firstName: 'pqr',
+    email: 'pqr@gmail.com',
+    gender: 'female',
+    mobileNumber: '9861335478',
+    image: 'pqr.png',
+    c: true,
+    c_plus: false,
+    python: false,
+  };
+  addUsers(user: UserFormType) {
+    return user.email;
+  }
   getUsers() {
     return users;
+  }
+
+  findUser(userEmail: string) {
+    return this.user;
+  }
+
+  deleteUser(userEmail: string) {
+    return 1;
   }
 }

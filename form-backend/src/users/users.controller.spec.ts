@@ -32,4 +32,9 @@ describe('Users Controller', () => {
     const res = await usersController.getUsers();
     expect(res).toEqual(users);
   });
+
+  it('DELETE user request returns the null value', async () => {
+    const res = await usersController.deleteUser('abc@gmail.com');
+    expect(res).toBe(null);
+  });
 });
