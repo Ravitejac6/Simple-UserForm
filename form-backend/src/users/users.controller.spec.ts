@@ -2,7 +2,8 @@ import { Test } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from './user.service';
 import { UsersFakeService } from './usersFakeService';
-import { users } from './usersFakeService';
+import { users, user } from './usersFakeService';
+import { UserFormType } from './user.schema';
 
 describe('Users Controller', () => {
   let usersController: UsersController;
@@ -36,5 +37,20 @@ describe('Users Controller', () => {
   it('DELETE user request returns the null value', async () => {
     const res = await usersController.deleteUser('abc@gmail.com');
     expect(res).toBe(null);
+  });
+
+  it('UPDATE request returns a updated user', async () => {
+    const updatedUser: UserFormType = {
+      firstName: 'pqr',
+      email: 'pqr@gmail.com',
+      gender: 'female',
+      mobileNumber: '9861335478',
+      image: 'pqr.png',
+      c: true,
+      c_plus: true,
+      python: true,
+    };
+    const res = await usersController.updateUser('abc@gmail.com', user);
+    expect(res).toEqual(updatedUser);
   });
 });

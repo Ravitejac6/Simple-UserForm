@@ -34,17 +34,18 @@ export const users: UserType[] = [
   },
 ];
 
+export const user: UserFormType = {
+  firstName: 'pqr',
+  email: 'pqr@gmail.com',
+  gender: 'female',
+  mobileNumber: '9861335478',
+  image: 'pqr.png',
+  c: true,
+  c_plus: false,
+  python: false,
+};
+
 export class UsersFakeService {
-  user: UserFormType = {
-    firstName: 'pqr',
-    email: 'pqr@gmail.com',
-    gender: 'female',
-    mobileNumber: '9861335478',
-    image: 'pqr.png',
-    c: true,
-    c_plus: false,
-    python: false,
-  };
   addUsers(user: UserFormType) {
     return user.email;
   }
@@ -52,8 +53,15 @@ export class UsersFakeService {
     return users;
   }
 
+  updateUser(userEmail: string, user: UserFormType) {
+    const foundUser = this.findUser(userEmail);
+    foundUser.c_plus = true;
+    foundUser.python = true;
+    foundUser.c = true;
+    return foundUser;
+  }
   findUser(userEmail: string) {
-    return this.user;
+    return user;
   }
 
   deleteUser(userEmail: string) {
