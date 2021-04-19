@@ -1,5 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserType, UserDocument, UserSchema } from './user.schema';
+import {
+  UserType,
+  UserDocument,
+  UserSchema,
+  UserFormType,
+} from './user.schema';
 import { Model } from 'mongoose';
 import { UsersService } from './user.service';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
@@ -55,7 +60,6 @@ describe('UsersService testing', () => {
       });
 
     const foundUser = await usersService.findUser('abc@gmail.com');
-    console.log(foundUser);
     expect(mockUserModelFindByEmailSpy).toBeCalled();
     expect(foundUser).toBe(user);
   });
@@ -65,7 +69,6 @@ describe('UsersService testing', () => {
       .spyOn(mockUserModel.prototype, 'save')
       .mockImplementation(() => Promise.resolve(user));
     const savedUserEmail = await usersService.addUser(user);
-    console.log(savedUserEmail);
     expect(savedUserEmail).toBe('abc@gmail.com');
     expect(mockUserModelSaveSpy).toBeCalled();
     expect(mockUserModelSaveSpy).toBeCalledTimes(1);
@@ -85,5 +88,53 @@ describe('UsersService testing', () => {
     const deletedUser = await usersService.deleteUser('abc@gmail.com');
     console.log(deletedUser);
     expect(deletedUser).toBeTruthy();
+    expect(mockUserDeleteByEmailSpy).toBeCalled();
+  });
+
+  it('Get users returns an array of Users', async () => {
+    const users: UserType[] = [
+      {
+        firstName: 'abc',
+        email: 'abc@gmail.com',
+        gender: 'male',
+        mobileNumber: '123456789',
+        image: 'xyz.jpg',
+        c: true,
+        c_plus: true,
+        python: false,
+      },
+      {
+        firstName: 'def',
+        email: 'def@gmail.com',
+        gender: 'male',
+        mobileNumber: '564312789',
+        image: 'def.jpg',
+        c: false,
+        c_plus: true,
+        python: false,
+      },
+      {
+        firstName: 'pqr',
+        email: 'pqr@gmail.com',
+        gender: 'female',
+        mobileNumber: '9861335478',
+        image: 'pqr.png',
+        c: true,
+        c_plus: false,
+        python: false,
+      },
+    ];
+
+    const mockUserModelFindSpy = jest
+      .spyOn(mockUserModel, 'find')
+      .mockImplementation(() => {
+        return {
+          exec: jest.fn().mockResolvedValue(users),
+        } as any;
+      });
+
+    const allUsers = await usersService.getUsers();
+    expect(allUsers).toBe(users);
+    expect(mockUserModelFindSpy).toBeCalledTimes(1);
   });
 });
