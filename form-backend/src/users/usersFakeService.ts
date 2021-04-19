@@ -1,5 +1,6 @@
 import { UserType } from './user.schema';
 
+// FakeUserService is used for testing purpose in the UserController.spec.ts
 export const users: UserType[] = [
   {
     firstName: 'abc',
